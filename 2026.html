@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年结束倒计时 - 新年快乐!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e0f7fa 0%, #c8e6c9 100%);
+            color: #37474f;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', -apple-system, sans-serif;
+            padding: 20px;
+            transition: background 1.5s ease;
+        }
+        
+        /* 新年模式：更明亮的清新渐变 */
+        body.new-year {
+            background: linear-gradient(135deg, #b2ebf2 0%, #c8e6c9 50%, #a7ffeb 100%);
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        header {
+            margin-bottom: 60px;
+            transition: all 1s ease;
+        }
+        
+        h1 {
+            font-size: 3.8rem;
+            font-weight: 300;
+            color: #00695c;
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+            transition: all 1s ease;
+        }
+        
+        body.new-year h1 {
+            font-size: 4.2rem;
+            color: #2e7d32;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #455a64;
+            font-weight: 400;
+            margin-bottom: 24px;
+            transition: all 1s ease;
+        }
+        
+        body.new-year .subtitle {
+            color: #2e7d32;
+            font-size: 1.6rem;
+        }
+        
+        .target-date {
+            font-size: 1.3rem;
+            color: #00796b;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 12px 32px;
+            border-radius: 50px;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+            transition: all 1s ease;
+        }
+        
+        body.new-year .target-date {
+            color: #2e7d32;
+            background: rgba(165, 214, 167, 0.6);
+        }
+        
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 80px;
+        }
+        
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            padding: 40px 30px;
+            min-width: 160px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s ease;
+            backdrop-filter: blur(8px);
+        }
+        
+        body.new-year .countdown-box {
+            background: rgba(200, 230, 201, 0.8);
+            box-shadow: 0 12px 40px rgba(46, 125, 50, 0.15);
+        }
+        
+        .countdown-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .countdown-value {
+            font-size: 4.8rem;
+            font-weight: 200;
+            color: #00695c;
+            line-height: 1;
+            transition: all 0.5s ease;
+        }
+        
+        body.new-year .countdown-value {
+            color: #2e7d32;
+        }
+        
+        .countdown-label {
+            font-size: 1.2rem;
+            color: #455a64;
+            margin-top: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.5s ease;
+        }
+        
+        body.new-year .countdown-label {
+            color: #33691e;
+        }
+        
+        .progress-container {
+            max-width: 720px;
+            margin: 0 auto 60px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(8px);
+            transition: all 1s ease;
+        }
+        
+        body.new-year .progress-container {
+            background: rgba(200, 230, 201, 0.8);
+        }
+        
+        .progress-title {
+            font-size: 1.5rem;
+            color: #37474f;
+            margin-bottom: 20px;
+            font-weight: 500;
+            transition: all 0.5s ease;
+        }
+        
+        body.new-year .progress-title {
+            color: #2e7d32;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: #bce0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #26a69a, #66bb6a);
+            border-radius: 6px;
+            width: 0%;
+            transition: width 1.2s ease;
+        }
+        
+        body.new-year .progress-fill {
+            background: linear-gradient(90deg, #43a047, #76d275);
+        }
+        
+        .progress-percentage {
+            margin-top: 16px;
+            font-size: 1.4rem;
+            color: #00695c;
+            font-weight: 500;
+            transition: all 0.5s ease;
+        }
+        
+        body.new-year .progress-percentage {
+            color: #2e7d32;
+        }
+        
+        .year-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+            color: #607d8b;
+            font-size: 1.1rem;
+            transition: all 0.5s ease;
+        }
+        
+        body.new-year .year-info {
+            color: #33691e;
+        }
+        
+        .message {
+            font-size: 1.4rem;
+            color: #455a64;
+            line-height: 1.8;
+            max-width: 720px;
+            margin: 0 auto 40px;
+            transition: all 1s ease;
+        }
+        
+        body.new-year .message {
+            color: #2e7d32;
+        }
+        
+        .highlight {
+            color: #00695c;
+            font-weight: 600;
+        }
+        
+        body.new-year .highlight {
+            color: #2e7d32;
+        }
+        
+        footer {
+            margin-top: 40px;
+            color: #78909c;
+            font-size: 0.95rem;
+            transition: all 1s ease;
+        }
+        
+        body.new-year footer {
+            color: #33691e;
+        }
+        
+        /* 新年模态框 - 清新风格 */
+        .new-year-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+        
+        .new-year-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 3px solid #a5d6a7;
+        }
+        
+        .new-year-content h2 {
+            font-size: 4rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .new-year-content p {
+            font-size: 1.6rem;
+            color: #455a64;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .new-year-content .year {
+            font-size: 5.5rem;
+            font-weight: 700;
+            color: #43a047;
+            display: block;
+            margin: 20px 0;
+        }
+        
+        .close-modal {
+            background: #66bb6a;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            background: #43a047;
+            transform: translateY(-3px);
+        }
+        
+        /* 淡入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        header { animation-delay: 0.2s; }
+        .countdown-box:nth-child(1) { animation-delay: 0.4s; }
+        .countdown-box:nth-child(2) { animation-delay: 0.6s; }
+        .countdown-box:nth-child(3) { animation-delay: 0.8s; }
+        .countdown-box:nth-child(4) { animation-delay: 1.0s; }
+        .progress-container { animation-delay: 1.2s; }
+        .message { animation-delay: 1.4s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="fade-in">
+            <h1 id="mainTitle">2026年结束倒计时</h1>
+            <p class="subtitle" id="subtitle">距离2026年结束还有</p>
+            <div class="target-date" id="targetDate">
+                <i class="fas fa-calendar-alt"></i> 目标日期：2026年12月31日
+            </div>
+        </header>
+        
+        <main>
+            <div class="countdown-container">
+                <div class="countdown-box fade-in">
+                    <div class="countdown-value" id="days">000</div>
+                    <div class="countdown-label">天</div>
+                </div>
+                <div class="countdown-box fade-in">
+                    <div class="countdown-value" id="hours">00</div>
+                    <div class="countdown-label">小时</div>
+                </div>
+                <div class="countdown-box fade-in">
+                    <div class="countdown-value" id="minutes">00</div>
+                    <div class="countdown-label">分钟</div>
+                </div>
+                <div class="countdown-box fade-in">
+                    <div class="countdown-value" id="seconds">00</div>
+                    <div class="countdown-label">秒</div>
+                </div>
+            </div>
+            
+            <div class="progress-container fade-in">
+                <div class="progress-title">2026年进度 <span id="progress-percentage">0%</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="year-info">
+                    <span>2026年1月1日</span>
+                    <span id="current-date">今天</span>
+                    <span>2026年12月31日</span>
+                </div>
+            </div>
+            
+            <div class="message fade-in">
+                <p>2026年已过去 <span class="highlight" id="elapsed-days">347</span> 天，<br>还剩余 <span class="highlight" id="remaining-days">18</span> 天。</p>
+                <p style="margin-top: 20px; color: #607d8b;">静静地感受时间的流逝，珍惜当下。</p>
+                <p id="newYearMessage" style="display: none; margin-top: 30px; font-size: 1.8rem; color: #43a047; font-weight: 600;">
+                    <i class="fas fa-seedling"></i> 新年快乐！欢迎来到2027年 <i class="fas fa-seedling"></i>
+                </p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2026-2027 清新倒计时 | 简约设计 | 更新时间: <span id="update-time"></span></p>
+        </footer>
+    </div>
+
+    <!-- 新年祝福模态框 -->
+    <div class="new-year-modal" id="newYearModal">
+        <div class="new-year-content">
+            <h2>新年快乐！</h2>
+            <p>2026年已经结束，欢迎来到</p>
+            <span class="year">2027</span>
+            <p>愿新的一年充满希望、健康与成长。<br>一切美好，如期而至。</p>
+            <button class="close-modal" id="closeModal">继续庆祝</button>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const targetDate = new Date(2026, 11, 31, 23, 59, 59);
+            const timeDiff = targetDate - now;
+
+            if (timeDiff < 0) {
+                // 切换到新年模式（只执行一次）
+                if (!document.body.classList.contains('new-year')) {
+                    document.body.classList.add('new-year');
+                    document.getElementById('mainTitle').textContent = '🎉 2027年新年快乐！';
+                    document.getElementById('subtitle').textContent = '欢迎来到新的一年';
+                    document.getElementById('targetDate').innerHTML = '<i class="fas fa-seedling"></i> 2027年已经开始';
+                    document.getElementById('newYearMessage').style.display = 'block';
+                    document.getElementById('newYearModal').style.display = 'flex';
+                }
+
+                document.getElementById('days').textContent = '000';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.getElementById('progress-fill').style.width = '100%';
+                document.getElementById('progress-percentage').textContent = '100.00%';
+                document.getElementById('elapsed-days').textContent = '365';
+                document.getElementById('remaining-days').textContent = '0';
+                document.getElementById('current-date').textContent = '2027年已开始';
+                return;
+            }
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(3, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            // 进度计算
+            const startOfYear = new Date(2026, 0, 1);
+            const endOfYear = new Date(2026, 11, 31, 23, 59, 59);
+            const totalYearMs = endOfYear - startOfYear;
+            const elapsedYearMs = now - startOfYear;
+            const progressPercentage = Math.min(100, (elapsedYearMs / totalYearMs) * 100);
+
+            document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
+            document.getElementById('progress-percentage').textContent = `${progressPercentage.toFixed(2)}%`;
+
+            const elapsedDays = Math.floor(elapsedYearMs / (1000 * 60 * 60 * 24));
+            const remainingDays = 365 - elapsedDays;
+
+            document.getElementById('elapsed-days').textContent = elapsedDays;
+            document.getElementById('remaining-days').textContent = remainingDays;
+
+            document.getElementById('current-date').textContent = now.toLocaleDateString('zh-CN', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            document.getElementById('update-time').textContent = now.toLocaleTimeString('zh-CN');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            document.getElementById('closeModal').addEventListener('click', () => {
+                document.getElementById('newYearModal').style.display = 'none';
+            });
+
+            // 如果当前日期已是2027年或以后，直接进入新年模式
+            const now = new Date();
+            if (now.getFullYear() >= 2027) {
+                document.body.classList.add('new-year');
+                document.getElementById('mainTitle').textContent = '🎉 2027年新年快乐！';
+                document.getElementById('subtitle').textContent = '欢迎来到新的一年';
+                document.getElementById('targetDate').innerHTML = '<i class="fas fa-seedling"></i> 2027年已经开始';
+                document.getElementById('newYearMessage').style.display = 'block';
+                document.getElementById('newYearModal').style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>
