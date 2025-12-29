@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简洁搜索导航</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        header {
+            background: linear-gradient(90deg, #3498db, #8e44ad);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .search-container {
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 18px 25px;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+            background: #f8f9fa;
+        }
+        
+        .search-btn {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 0 35px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background: linear-gradient(90deg, #2980b9, #2573a7);
+        }
+        
+        .quick-links {
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .link-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #34495e;
+            padding: 15px 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .link-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            color: #3498db;
+        }
+        
+        .link-icon {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+        
+        .link-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            background: #f1f2f6;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .search-input {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+            
+            .search-btn {
+                padding: 0 25px;
+            }
+            
+            .links-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+        }
+        
+        .bing-logo {
+            display: block;
+            margin: 20px auto 0;
+            width: 120px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .bing-logo:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>简洁搜索导航</h1>
+            <p class="subtitle">快速访问您喜爱的网站</p>
+        </header>
+        
+        <div class="search-container">
+            <form id="searchForm" action="https://cn.bing.com/search" method="GET" target="_blank">
+                <div class="search-box">
+                    <input type="text" class="search-input" name="q" placeholder="输入搜索内容..." autocomplete="off" required>
+                    <button type="submit" class="search-btn">搜索</button>
+                </div>
+            </form>
+            <img src="https://www.bing.com/s/a/hpc19.png" alt="Bing" class="bing-logo">
+        </div>
+        
+        <div class="quick-links">
+            <h2 class="section-title">常用网站</h2>
+            <div class="links-grid">
+                <a href="https://www.baidu.com" class="link-item" target="_blank">
+                    <i class="fab fa-chrome link-icon"></i>
+                    <span class="link-name">百度</span>
+                </a>
+                <a href="https://www.zhihu.com" class="link-item" target="_blank">
+                    <i class="fas fa-comments link-icon"></i>
+                    <span class="link-name">知乎</span>
+                </a>
+                <a href="https://www.bilibili.com" class="link-item" target="_blank">
+                    <i class="fas fa-play-circle link-icon"></i>
+                    <span class="link-name">B站</span>
+                </a>
+                <a href="https://weibo.com" class="link-item" target="_blank">
+                    <i class="fas fa-at link-icon"></i>
+                    <span class="link-name">微博</span>
+                </a>
+                <a href="https://mail.qq.com" class="link-item" target="_blank">
+                    <i class="fas fa-envelope link-icon"></i>
+                    <span class="link-name">QQ邮箱</span>
+                </a>
+                <a href="https://github.com" class="link-item" target="_blank">
+                    <i class="fab fa-github link-icon"></i>
+                    <span class="link-name">GitHub</span>
+                </a>
+                 <a href="http://www.waterchisato.top" class="link-item" target="_blank">
+                    <i class="fab fa-github link-icon"></i>
+                    <span class="link-name">水喝千束的官网</span>
+                  </a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 简洁搜索导航 | 使用Bing搜索引擎</p>
+        </footer>
+    </div>
+
+    <script>
+        // 添加搜索框聚焦效果
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('focus', function() {
+            this.parentElement.style.boxShadow = '0 8px 25px rgba(52, 152, 219, 0.3)';
+        });
+        
+        searchInput.addEventListener('blur', function() {
+            this.parentElement.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+        });
+        
+        // 添加回车键提交支持
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            if (!searchInput.value.trim()) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>
